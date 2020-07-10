@@ -1,0 +1,30 @@
+<style>
+    #box{
+      width: 100px;
+      height: 100px;
+      background: pink;
+      margin: 30px auto 0;
+      text-align: center;
+      transition: 1s;
+    }  
+    </style>
+    <div id="box"></div>
+    <script>
+    let oBox = document.getElementById('box');
+    let colorArr = ['orange','lightblue','lightgreen','pink','lightyellow']
+    let lastX,lastY,lastZ
+    let index = 0
+    window.addEventListener('devicemotion',(e)=>{
+      requestAnimationFrame(()=>{
+        let {x,y,z} = e.accelerationIncludingGravity
+        let nowRange = Math.abs(lastX -x) + Math.abs(lastY - y) + Math.abs(lastZ - z) 
+        if(nowRange > 80){
+          index = (index+1)%colorArr.length
+          oBox.style.background = colorArr[index]
+        }
+        lastX = x 
+        lastY = y
+        lastZ = z 
+      })
+    })
+    </script>
